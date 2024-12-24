@@ -27,12 +27,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 31536000  # Bật HSTS trong 1 năm
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+import os
+
+DEBUG = True  # Chỉ dùng cho phát triển
+
+if DEBUG:  # Phát triển
+    SECURE_SSL_REDIRECT = False
+else:  # Sản xuất
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
+
 
 # Application definition
 
@@ -127,7 +136,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# Nếu bạn có thư mục 'static/' trong thư mục gốc
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
