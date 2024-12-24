@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cây nhà Lá vườn</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #a4b3d1;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(90deg, #108e5b, #2c3e50);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        header .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            background: #ecf0f1;
+        }
+
+        .search-bar button {
+            padding: 12px 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #1e8449;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        header nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        header .cart {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        header .cart img {
+            width: 28px;
+            height: 28px;
+        }
+
+        header .cart span {
+            font-size: 1rem;
+            background-color: #ffffff;
+            color: #27ae60;
+            padding: 6px 12px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .hero {
+            background-image: url('https://images.wallpaperscraft.com/image/single/japanese_garden_stones_balance_1266689_1600x900.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: rgb(245, 242, 240);
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 2rem;
+            margin: 20px 0 30px;
+        }
+
+        .hero button {
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            background-color: #2e066e;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero button:hover {
+            background-color: #d60e0e;
+            transform: translateY(-3px);
+        }
+
+        .features {
+            background: #ffffff;
+            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin: 15px 0;
+            color: #27ae60;
+        }
+
+        .categories, .featured-products {
+            padding: 70px 20px;
+            background-color: #ecf0f1;
+        }
+
+        .categories h2, .featured-products h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            color: #27ae60;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category, .product-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category:hover, .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .category img, .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .category h3, .product-card .info h3 {
+            font-size: 1.5rem;
+            color: #27ae60;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .product-card .info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-card .info .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2ecc71;
+            margin: 10px 0;
+        }
+
+        .product-card .info button {
+            padding: 12px 25px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .product-card .info button:hover {
+            background-color: #2ecc71;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: #27ae60;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        footer a {
+            color: #2ecc71;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .cart-modal .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-modal .modal-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #27ae60;
+            font-size: 2rem;
+        }
+
+        .cart-modal .modal-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart-modal .modal-content ul li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.2rem;
+        }
+
+        .cart-modal .modal-content ul li:last-child {
+            border-bottom: none;
+        }
+
+        .cart-modal .modal-content button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 25px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-modal .modal-content button:hover {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Cây nhà Lá vườn</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm sản phẩm...">
+            <button>Tìm kiếm</button>
+        </div>
+        <nav>
+            <a href="{% url 'index' %}">Trang chủ</a>
+            <a href="#">Sản phẩm</a>
+            <a href="#">Danh mục</a>
+    
+            {% if request.session.user_id %}
+                <!-- Hiển thị khi người dùng đã đăng nhập -->
+                <span>Xin chào, {{ request.session.username }}</span>
+                <a href="{% url 'logout' %}">Đăng xuất</a>
+            {% else %}
+                <!-- Hiển thị khi người dùng chưa đăng nhập -->
+                <a href="{% url 'login' %}">Đăng nhập</a>
+                <a href="{% url 'signup' %}">Đăng ký</a>
+            {% endif %}
+            
+            <div class="cart" id="cart">
+                <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart--v1.png" alt="Cart">
+                <span id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+    
+
+    <div class="hero">
+        <h1>Nơi hội tụ sắc màu thiên nhiên</h1>
+        <p>Khám phá vẻ đẹp từ thiên nhiên và trải nghiệm mua sắm tuyệt vời.</p>
+        <button>Khám phá ngay</button>
+    </div>
+
+    <section class="features">
+        <div class="feature-card">
+            <img src="https://catcarry.com/thang5/VANTAICONMEO/upload/images/dich-vu-giao-hang-nhanh-3.png" alt="Delivery">
+            <h3>Giao hàng nhanh</h3>
+            <p>Đảm bảo giao hàng trong 24 giờ với chất lượng sản phẩm cao nhất.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://dannygreenbiomarkt.vn/wp-content/uploads/2021/09/613d2d_d5af948d4b1243ad823525bfedefdfda_mv2.webp" alt="Organic">
+            <h3>Sản phẩm hữu cơ</h3>
+            <p>Cung cấp các sản phẩm sạch, an toàn và hoàn toàn tự nhiên.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://photo.salekit.com/uploads/fchat_5b4872d13803896dd77125af/chatbot-dich-vu-khach-hang.jpg" alt="Support">
+            <h3>Hỗ trợ tận tình</h3>
+            <p>Luôn sẵn sàng hỗ trợ bạn 24/7 với đội ngũ tư vấn chuyên nghiệp.</p>
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2>Danh mục nổi bật</h2>
+        <div class="grid">
+            <div class="category">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/033/112/973/small/hyper-realistic-tropical-fruits-a-sensory-delight-for-all-ai-generated-photo.jpg" alt="Trái cây">
+                <h3>Trái cây</h3>
+            </div>
+            <div class="category">
+                <img src="https://buildingalifestyle.com/wp-content/uploads/2022/07/LifeStyle-Homes_Home-Garden-300x200.jpeg" alt="Rau củ">
+                <h3>Rau củ</h3>
+            </div>
+            <div class="category">
+                <img src="https://culturephamtravel.com/wp-content/uploads/2022/05/hydrangea-flower-garden-dalat-culture-pham-travel-2-300x200.png" alt="Hoa tươi">
+                <h3>Hoa tươi</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <h2>Sản phẩm nổi bật</h2>
+        <div class="grid">
+            <div class="product-card">
+                <img src="https://danviet.mediacdn.vn/296231569849192448/2021/7/1/gia-mit-hom-nay-1625114035939860442582.jpg" alt="Trái cây">
+                <div class="info">
+                    <h3>Mít Thái Lan</h3>
+                    <div class="price">100,000 VND</div>
+                    <button>Thêm vào giỏ</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/1/18/20190425063710470758rauxanhmax-800x8001-164247973908380094864.jpg" alt="Rau củ">
+                <div class="info">
+                    <h3>Rau củ tươi</h3>
+                    <div class="price">50,000 VND</div>
+                    <button>Thêm vào giỏ</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://file.hstatic.net/200000398417/file/6604.jpg_wh860_91b22ea536c24e7a8d92f642bdd27258_grande.jpg" alt="Hoa tươi">
+                <div class="info">
+                    <h3>Hoa hồng và rượu vang</h3>
+                    <div class="price">70,000 VND</div>
+                    <button>Thêm vào giỏ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Cây nhà Lá vườn. Tất cả quyền được bảo lưu. <a href="#">Chính sách bảo mật</a></p>
+    </footer>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="modal-content">
+            <h2>Giỏ hàng của bạn</h2>
+            <ul id="cart-items">
+                <li>Chưa có sản phẩm trong giỏ</li>
+            </ul>
+            <button id="close-cart">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        const cartButton = document.getElementById('cart');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartButton = document.getElementById('close-cart');
+
+        cartButton.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeCartButton.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+        document.querySelectorAll('.product-card button').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const cartCount = document.getElementById('cart-count');
+                const cartItems = document.getElementById('cart-items');
+        
+                // Get the product name and price
+                const productName = button.previousElementSibling.querySelector('h3').textContent;
+                const productPrice = button.previousElementSibling.querySelector('.price').textContent;
+        
+                // Update cart count
+                let count = parseInt(cartCount.textContent);
+                cartCount.textContent = count + 1;
+        
+                // Add item to cart modal
+                const listItem = document.createElement('li');
+                listItem.textContent = `${productName} - ${productPrice}`;
+                cartItems.appendChild(listItem);
+            });
+        });
+        
+    </script>
+</body>
+</html>
+

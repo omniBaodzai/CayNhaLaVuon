@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(90deg, #108e5b, #2c3e50);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        header .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        header nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://images.wallpaperscraft.com/image/single/japanese_garden_stones_balance_1266689_1600x900.jpg') no-repeat center center/cover;
+            background-size: cover;
+        }
+
+        .login-box {
+            background: linear-gradient(145deg, #ffffff, #e8e8e8);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin: 0 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .login-box:hover {
+            transform: scale(1.03);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #27ae60;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .login-box .input-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .login-box .input-group label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .login-box .input-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-box .input-group input:focus {
+            border-color: #27ae60;
+            box-shadow: 0 0 8px rgba(39, 174, 96, 0.3);
+        }
+
+        .login-box .btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.2rem;
+            background-color: #27ae60;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-box .btn:hover {
+            background-color: #2ecc71;
+        }
+
+        .login-box .signup-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        .login-box .signup-link a {
+            color: #27ae60;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .login-box .signup-link a:hover {
+            color: #2ecc71;
+        }
+
+        /* Thêm responsive cho các màn hình nhỏ */
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 25px;
+                max-width: 320px;
+            }
+
+            .login-box h2 {
+                font-size: 1.6rem;
+            }
+
+            .login-box .input-group input {
+                font-size: 0.95rem;
+            }
+
+            .login-box .btn {
+                font-size: 1rem;
+            }
+        }
+
+        /* Thêm style cho các nút đăng nhập bằng Google và Facebook */
+        .social-btns {
+            margin-top: 20px;
+        }
+        
+        .social-btns button {
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: opacity 0.3s ease;
+            margin-bottom: 10px; /* Thêm margin-bottom để tạo khoảng cách giữa các nút */
+        }
+        
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+        }
+        
+        .google-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .facebook-btn {
+            background-color: #3b5998;
+            color: white;
+        }
+        
+        .facebook-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .google-btn img, .facebook-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Cây nhà Lá vườn</div>
+        <nav>
+            <a href="{% url 'index' %}">Trang chủ</a>
+            <a href="{% url 'signup' %}">Đăng ký</a>
+        </nav>
+    </header>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Đăng nhập</h2>
+            {% if message %}
+                <p style="color: red; text-align: center;">{{ message }}</p>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+                </div>
+                <button type="submit" class="btn">Đăng nhập</button>
+            </form>
+            <div class="signup-link">
+                <p>Chưa có tài khoản? <a href="{% url 'signup' %}">Đăng ký ngay</a></p>
+            </div>
+    
+            <!-- Nút đăng nhập qua Google và Facebook -->
+            <div class="social-btns">
+                <button class="google-btn" onclick="window.location='YOUR_GOOGLE_LOGIN_URL'">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_BxIFDiqRSADS_dryOjRxIdflIGgt8vianZy7fPOHmGz8HsBUi-lggRTn5-raiCOnF0Q&usqp=CAU" alt="Google Logo">
+                    Đăng nhập với Google
+                </button>
+                <button class="facebook-btn" onclick="window.location='YOUR_FACEBOOK_LOGIN_URL'">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1024px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook Logo">
+                    Đăng nhập với Facebook
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>
