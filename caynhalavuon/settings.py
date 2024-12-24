@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import dj_database_url
+import pymysql
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+
+pymysql.install_as_MySQLdb()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -23,6 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(r9+q95w+er!l#-5n!xj)x8y_gy4q^$!2^&k-guyhyzg2nj#3c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')  # Mặc định nếu không có DATABASE_URL
+}
 
 
 import os
