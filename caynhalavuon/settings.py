@@ -23,23 +23,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(r9+q95w+er!l#-5n!xj)x8y_gy4q^$!2^&k-guyhyzg2nj#3c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['*']
 
 import os
 
-DEBUG = True  # Chỉ dùng cho phát triển
+# Tắt DEBUG trong môi trường production
+DEBUG = False
+ALLOWED_HOSTS = ['*']  # Hoặc tên miền cụ thể nếu bạn có
 
-if DEBUG:  # Phát triển
-    SECURE_SSL_REDIRECT = False
-else:  # Sản xuất
-    SECURE_SSL_REDIRECT = True
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
+# Thêm Whitenoise để phục vụ tệp tĩnh
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Thêm dòng này
+    # Các middleware khác
+]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Thư mục lưu tệp tĩnh
+
 
 
 
@@ -137,9 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# Nếu bạn có thư mục 'static/' trong thư mục gốc
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Thư mục lưu tệp tĩnh
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
